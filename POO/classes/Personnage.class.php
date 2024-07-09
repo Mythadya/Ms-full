@@ -1,11 +1,13 @@
 <?php
 
 class Personnage {
+    // Propriétés privées de la classe Personnage
     private $nom;
     private $prenom;
     private $age;
     private $sexe;
 
+    // Méthodes pour définir et obtenir le nom
     public function setNom($nom) {
         $this->nom = $nom;
     }
@@ -14,6 +16,7 @@ class Personnage {
         return $this->nom;
     }
 
+    // Méthodes pour définir et obtenir le prénom
     public function setPrenom($prenom) {
         $this->prenom = $prenom;
     }
@@ -22,6 +25,7 @@ class Personnage {
         return $this->prenom;
     }
 
+    // Méthodes pour définir et obtenir l'âge
     public function setAge($age) {
         $this->age = $age;
     }
@@ -30,6 +34,7 @@ class Personnage {
         return $this->age;
     }
 
+    // Méthodes pour définir et obtenir le sexe
     public function setSexe($sexe) {
         $this->sexe = $sexe;
     }
@@ -38,33 +43,12 @@ class Personnage {
         return $this->sexe;
     }
 
+    // Méthode magique pour convertir l'objet en chaîne de caractères
     public function __toString() {
-        return "Nom : ". $this->nom. ", Prénom : ". $this->prenom. ", Âge : ". $this->age. ", Sexe : ". $this->sexe;
+        return "Nom : " . $this->nom . ", Prénom : " . $this->prenom . ", Âge : " . $this->age . ", Sexe : " . $this->sexe;
     }
 }
 
 ?>
 
 
-$employes = array(
-
-new Employe('DUPONT', 'Pierre', '2010-01-01', 'Commercial', 40000, 'Commercial'),
-
-new Employe('DURAND', 'Marie', '2015-06-01', 'Comptabilité', 35000, 'Comptabilité'),
-
-new Employe('LEFEBVRE', 'Jean', '2012-03-01', 'Direction', 60000, 'Direction'),
-
-new Employe('MARTIN', 'Sophie', '2018-09-01', 'Ressources Humaines', 45000, 'Ressources Humaines'),
-
-new Employe('PETIT', 'François', '2016-02-01', 'Informatique', 50000, 'Informatique')
-
-);
-
-
-foreach ($employes as $employe) {
-
-echo "Prime de $employe->nom $employe->prenom : " . $employe->getPrime() . " €<br>";
-
-$employe->envoyerOrdreDeTransfert();
-
-}

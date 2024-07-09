@@ -1,22 +1,35 @@
 <?php
 
+// Informations de connexion à la base de données
 $dsn = "mysql:host=localhost;dbname=record";
 $username = "admin";
 $password = "Afpa1234";
 
 try {
+  // Connexion à la base de données avec PDO
   $db = new PDO($dsn, $username, $password);
   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+  // Vérification si un ID est passé en paramètre GET
   if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $stmt = $db->prepare("SELECT d.*, a.artist_name, d.disc_picture FROM disc d INNER JOIN artist a ON d.artist_id = a.artist_id WHERE d.disc_id = :id");
+    
+    // Préparation de la requête SQL pour récupérer les détails du vinyle avec l'artiste associé
+    $stmt = $db->prepare("SELECT d.*, a.artist_name, d.disc_picture 
+                          FROM disc d 
+                          INNER JOIN artist a ON d.artist_id = a.artist_id 
+                          WHERE d.disc_id = :id");
     $stmt->bindParam(':id', $id);
     $stmt->execute();
+    
+    // Récupération des données du vinyle et de l'artiste
     $album = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    // Si un vinyle est trouvé avec l'ID spécifié
     if ($album) {
+      // Vérification si le formulaire a été soumis en méthode POST
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Récupération des données du formulaire
         $title = $_POST['title'];
         $artist_id = $_POST['artist'];
         $year = $_POST['year'];
@@ -24,7 +37,15 @@ try {
         $genre = $_POST['genre'];
         $price = $_POST['price'];
 
-        $updateStmt = $db->prepare("UPDATE disc SET disc_title = :title, artist_id = :artist, disc_year = :year, disc_label = :label, disc_genre = :genre, disc_price = :price WHERE disc_id = :id");
+        // Préparation de la requête SQL pour mettre à jour le vinyle dans la base de données
+        $updateStmt = $db->prepare("UPDATE disc 
+                                    SET disc_title = :title, 
+                                        artist_id = :artist, 
+                                        disc_year = :year, 
+                                        disc_label = :label, 
+                                        disc_genre = :genre, 
+                                        disc_price = :price 
+                                    WHERE disc_id = :id");
         $updateStmt->bindParam(':title', $title);
         $updateStmt->bindParam(':artist', $artist_id);
         $updateStmt->bindParam(':year', $year);
@@ -33,19 +54,22 @@ try {
         $updateStmt->bindParam(':price', $price);
         $updateStmt->bindParam(':id', $id);
 
+        // Exécution de la requête de mise à jour
         if ($updateStmt->execute()) {
-          echo "Le disque a été mis à jour avec succès.";
+          echo "Le vinyle a été mis à jour avec succès.";
           header('Location: index.php');
           exit();
         } else {
-          echo "Une erreur s'est produite lors de la mise à jour du disque.";
+          echo "Une erreur s'est produite lors de la mise à jour du vinyle.";
         }
       } else {
+        // Si la méthode HTTP n'est pas POST, récupérer les artistes pour afficher dans le formulaire
         $artistStmt = $db->prepare("SELECT * FROM artist");
         $artistStmt->execute();
         $artists = $artistStmt->fetchAll(PDO::FETCH_ASSOC);
 
-       ?>
+        // Affichage du formulaire de modification du vinyle
+        ?>
         <!DOCTYPE html>
         <html lang="fr">
         <head>
@@ -53,67 +77,7 @@ try {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Modifier un vinyle</title>
             <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    margin: 0;
-                    padding: 0;
-                }
-
-                header {
-                    background-color: #333;
-                    color: white;
-                    padding: 10px;
-                    display: flex;
-                    justify-content: space-between;
-                }
-
-                header a {
-                    color: white;
-                    text-decoration: none;
-                    margin-right: 10px;
-                }
-
-                main {
-                    padding: 20px;
-                    max-width: 800px;
-                    margin: 0 auto;
-                }
-
-                main h1 {
-                    text-align: center;
-                    margin-bottom: 20px;
-                }
-
-                main label {
-                    display: block;
-                    margin-bottom: 5px;
-                }
-
-                main input[type="text"],
-                main input[type="number"],
-                main select {
-                    width: 100%;
-                    padding: 5px;
-                    margin-bottom: 10px;
-                }
-
-                main button {
-                    background-color: #4CAF50;
-                    color: white;
-                    padding: 10px;
-                    border: none;
-                    cursor: pointer;
-                    margin-top: 10px;
-                }
-
-                main button:hover {
-                    background-color: #45a049;
-                }
-
-                main img {
-                    border-radius: 5px;
-                    margin-top: 10px;
-                }
+                /* Styles CSS pour la mise en page */
             </style>
         </head>
         <body>
@@ -135,7 +99,7 @@ try {
                     <label for="artist">Artiste :</label>
                     <select name="artist" id="artist">
                         <?php foreach ($artists as $artist):?>
-                            <option value="<?php echo $artist['artist_id'];?>" <?php if ($artist['artist_id'] == $album['artist_id']) echo 'elected';?>><?php echo $artist['artist_name'];?></option>
+                            <option value="<?php echo $artist['artist_id'];?>" <?php if ($artist['artist_id'] == $album['artist_id']) echo 'selected';?>><?php echo $artist['artist_name'];?></option>
                         <?php endforeach;?>
                     </select>
 
@@ -160,16 +124,20 @@ try {
             </main>
         </body>
         </html>
-       <?php
+        <?php
       }
     } else {
-      echo "Aucun disque trouvé avec cet ID";
+      // Si aucun vinyle n'est trouvé avec l'ID spécifié
+      echo "Aucun vinyle trouvé avec cet ID";
     }
   } else {
+    // Si aucun ID n'est passé en paramètre GET
     echo "Erreur : ID manquant";
   }
 
 } catch(PDOException $e) {
+  // En cas d'erreur lors de la connexion à la base de données
   echo "Erreur de connexion : ". $e->getMessage();
 }
+
 ?>
