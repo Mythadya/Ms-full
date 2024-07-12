@@ -11,7 +11,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Requête SQL
-    $sql = "SELECT c.id, c.libelle, COUNT(*) AS nombre_plats_actifs
+    $sql = "SELECT c.id, c.libelle, COUNT(*) AS nombre_plats_actifs, GROUP_CONCAT(p.libelle) AS plats_actifs
             FROM plat p
             JOIN categorie c ON p.id_categorie = c.id
             WHERE p.active = 'Yes'
@@ -59,6 +59,7 @@ try {
             <tr>
                 <th>Catégorie</th>
                 <th>Nombre de Plats Actifs</th>
+                <th>Plats Actifs</th>
             </tr>
         </thead>
         <tbody>
@@ -67,11 +68,12 @@ try {
                     <tr>
                         <td><?php echo htmlspecialchars($row['libelle']); ?></td>
                         <td><?php echo htmlspecialchars($row['nombre_plats_actifs']); ?></td>
+                        <td><?php echo htmlspecialchars($row['plats_actifs']); ?></td>
                     </tr>
                 <?php endforeach; ?>
             <?php else : ?>
                 <tr>
-                    <td colspan="2">Aucun résultat trouvé</td>
+                    <td colspan="3">Aucun résultat trouvé</td>
                 </tr>
             <?php endif; ?>
         </tbody>
