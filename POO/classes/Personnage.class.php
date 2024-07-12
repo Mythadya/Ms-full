@@ -52,3 +52,10 @@ class Personnage {
 ?>
 
 
+
+
+SELECT c.libelle, COUNT(p.id) AS nb_plats
+            FROM categorie c
+            JOIN plat p ON c.id = p.id
+            WHERE p.actif = 1 -- Seul les plats actifs sont Comptés
+            GROUP BY c.id;
