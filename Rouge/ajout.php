@@ -6,64 +6,111 @@ $password = 'Afpa1234';
 
 try {
     $pdo = new PDO($dsn, $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    echo 'Erreur de connexion : '. $e->getMessage();
+    echo 'Erreur de connexion à la base de données : ' . $e->getMessage();
     exit();
 }
 
-// Création des tables si elles n'existent pas déjà
-$pdo->query('CREATE TABLE IF NOT EXISTS categorie (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nom VARCHAR(255) NOT NULL
-)');
+// Fonction pour ajouter une nouvelle catégorie et un plat
+function addCategoryAndDish($pdo, $libelleCategorie, $imageCategorie, $libellePlat, $descriptionPlat, $prixPlat, $imagePlat) {
+    // Préparation des requêtes avec des paramètres nommés
+    $stmtCategorie = $pdo->prepare('INSERT INTO categorie (libelle, image, active) VALUES (:libelle, :image, 1)');
+    $stmtPlat = $pdo->prepare('INSERT INTO plat (libelle, description, prix, image, id_categorie, active) VALUES (:libelle, :description, :prix, :image, :id_categorie, 1)');
 
-$pdo->query('CREATE TABLE IF NOT EXISTS plat (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nom VARCHAR(255) NOT NULL,
-    description TEXT,
-    prix DECIMAL(10, 2) NOT NULL,
-    categorie_id INT,
-    FOREIGN KEY (categorie_id) REFERENCES categorie(id)
-)');
+    // Exécution des requêtes avec les paramètres
+    $stmtCategorie->execute([':libelle' => $libelleCategorie, ':image' => $imageCategorie['name']]);
+    $idCategorie = $pdo->lastInsertId();
+    $stmtPlat->execute([':libelle' => $libellePlat, ':description' => $descriptionPlat, ':prix' => $prixPlat, ':image' => $imagePlat['name'], ':id_categorie' => $idCategorie]);
 
-// Formulaire pour ajouter une nouvelle catégorie et un plat
-if (isset($_POST['submit'])) {
-    $categorie_name = $_POST['categorie_name'];
-    $plat_name = $_POST['plat_name'];
-    $plat_description = $_POST['plat_description'];
-    $plat_prix = $_POST['plat_prix'];
-
-    // Ajout de la nouvelle catégorie
-    $sql_categorie = 'INSERT INTO categorie (nom) VALUES (:categorie_name)';
-    $stmt_categorie = $pdo->prepare($sql_categorie);
-    $stmt_categorie->bindParam(':categorie_name', $categorie_name);
-    $stmt_categorie->execute();
-
-    // Récupération de l'ID de la nouvelle catégorie
-    $categorie_id = $pdo->lastInsertId();
-
-    // Ajout du plat dans la nouvelle catégorie
-    $sql_plat = 'INSERT INTO plat (nom, description, prix, categorie_id) VALUES (:plat_name, :plat_description, :plat_prix, :categorie_id)';
-    $stmt_plat = $pdo->prepare($sql_plat);
-    $stmt_plat->bindParam(':plat_name', $plat_name);
-    $stmt_plat->bindParam(':plat_description', $plat_description);
-    $stmt_plat->bindParam(':plat_prix', $plat_prix);
-    $stmt_plat->bindParam(':categorie_id', $categorie_id);
-    $stmt_plat->execute();
-
-    echo 'Nouvelle catégorie et plat ajoutés avec succès!';
+    return true;
 }
 
-// Formulaire HTML pour ajouter une nouvelle catégorie et un plat
+// Traitement du formulaire
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $libelleCategorie = $_POST['libelle_categorie'];
+    $imageCategorie = $_FILES['image_categorie'];
+    $libellePlat = $_POST['libelle_plat'];
+    $descriptionPlat = $_POST['description_plat'];
+    $prixPlat = $_POST['prix_plat'];
+    $imagePlat = $_FILES['image_plat'];
+
+    if (addCategoryAndDish($pdo, $libelleCategorie, $imageCategorie, $libellePlat, $descriptionPlat, $prixPlat, $imagePlat)) {
+        echo 'Catégorie et plat ajoutés avec succès !';
+    } else {
+        echo 'Erreur lors de l\'ajout de la catégorie et du plat.';
+    }
+}
+
+// Affichage du formulaire
 ?>
-<form method="post">
-    <label for="categorie_name">Nom de la catégorie :</label>
-    <input type="text" id="categorie_name" name="categorie_name"><br><br>
-    <label for="plat_name">Nom du plat :</label>
-    <input type="text" id="plat_name" name="plat_name"><br><br>
-    <label for="plat_description">Description du plat :</label>
-    <textarea id="plat_description" name="plat_description"></textarea><br><br>
-    <label for="plat_prix">Prix du plat :</label>
-    <input type="number" id="plat_prix" name="plat_prix"><br><br>
-    <input type="submit" name="submit" value="Ajouter">
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
+
+<h2>Ajouter une nouvelle catégorie et un plat</h2>
+
+<div class="form-group">
+  <label for="libelle_categorie">Libellé de la catégorie :</label>
+  <input type="text" id="libelle_categorie" name="libelle_categorie" required class="form-control">
+</div>
+
+<div class="form-group">
+  <label for="image_categorie">Image de la catégorie :</label>
+  <input type="file" id="image_categorie" name="image_categorie" required class="form-control-file">
+</div>
+<hr>
+<h3>Informations du plat</h3>
+
+<div class="form-group">
+  <label for="libelle_plat">Libellé du plat :</label>
+  <input type="text" id="libelle_plat" name="libelle_plat" required class="form-control">
+</div>
+
+<div class="form-group">
+  <label for="description_plat">Description du plat :</label>
+  <textarea id="description_plat" name="description_plat" required class="form-control"></textarea>
+</div>
+
+<div class="form-group">
+  <label for="prix_plat">Prix du plat :</label>
+  <input type="number" id="prix_plat" name="prix_plat" required class="form-control">
+</div>
+
+<div class="form-group">
+  <label for="image_plat">Image du plat :</label>
+  <input type="file" id="image_plat" name="image_plat" required class="form-control-file">
+</div>
+
+<button type="submit" class="btn btn-primary">Ajouter</button>
 </form>
+<!-- Ajout de styles pour améliorer l'apparence du formulaire -->
+<style>
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-control-file {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #3e8e41;
+}
+</style>
