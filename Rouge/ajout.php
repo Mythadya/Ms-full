@@ -15,13 +15,13 @@ try {
 // Fonction pour ajouter une nouvelle catégorie et un plat
 function addCategoryAndDish($pdo, $libelleCategorie, $imageCategorie, $libellePlat, $descriptionPlat, $prixPlat, $imagePlat) {
     // Préparation des requêtes avec des paramètres nommés
-    $stmtCategorie = $pdo->prepare('INSERT INTO categorie (libelle, image, active) VALUES (:libelle, :image, 1)');
-    $stmtPlat = $pdo->prepare('INSERT INTO plat (libelle, description, prix, image, id_categorie, active) VALUES (:libelle, :description, :prix, :image, :id_categorie, 1)');
+    $stmtCategorie = $pdo->prepare('INSERT INTO categorie (libelle, image, active) VALUES (:libelle, :image, :active)');
+    $stmtPlat = $pdo->prepare('INSERT INTO plat (libelle, description, prix, image, id_categorie, active) VALUES (:libelle, :description, :prix, :image, :id_categorie, :active)');
 
     // Exécution des requêtes avec les paramètres
-    $stmtCategorie->execute([':libelle' => $libelleCategorie, ':image' => $imageCategorie['name']]);
+    $stmtCategorie->execute([':libelle' => $libelleCategorie, ':image' => $imageCategorie['name'], ':active' => 'Yes']);
     $idCategorie = $pdo->lastInsertId();
-    $stmtPlat->execute([':libelle' => $libellePlat, ':description' => $descriptionPlat, ':prix' => $prixPlat, ':image' => $imagePlat['name'], ':id_categorie' => $idCategorie]);
+    $stmtPlat->execute([':libelle' => $libellePlat, ':description' => $descriptionPlat, ':prix' => $prixPlat, ':image' => $imagePlat['name'], ':id_categorie' => $idCategorie, ':active' => 'Yes']);
 
     return true;
 }
