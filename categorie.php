@@ -29,7 +29,7 @@ try {
                 <img src="<?php echo 'images_the_district  (1)/cate/' . $category['image']; ?>" class="card-img-top" alt="<?php echo $category['libelle']; ?>">
                 <div class="card-body">
                     <h5 class="card-title"><?php echo $category['libelle']; ?></h5>
-                    <a href="category.php?id=<?php echo $category['id']; ?>" class="btn btn-primary">View Category</a>
+                    <a href="category.php?id=<?php echo $category['id']; ?>" class="btn btn-primary">Voir Catégorie</a>
                 </div>
             </div>
         </div>
