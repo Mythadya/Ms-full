@@ -1,6 +1,6 @@
 <?php
 
-require 'DAO.php';
+include 'DAO.php';
 include 'header.php';
 
 

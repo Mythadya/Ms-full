@@ -1,5 +1,5 @@
 <?php
-require_once 'DAO.php';
+include 'DAO.php';
 include 'header.php';
 
 $dsn = 'mysql:host=localhost;dbname=District';

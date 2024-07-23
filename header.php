@@ -55,12 +55,12 @@
                     <source src="images_the_district  (1)/267-135875613_tiny.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
-                <div class="card-body position-absolute top-50 start-50 translate-middle">
+                <!-- <div class="card-body position-absolute top-50 start-50 translate-middle">
                     <form class="d-flex">
                         <input class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Rechercher">
                         <button class="btn btn-outline-success" type="submit">Rechercher</button>
                     </form>
-                </div>
+                </div> -->
             </div>
         </div>
     </header><br>
