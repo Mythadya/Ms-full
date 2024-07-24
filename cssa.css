@@ -149,3 +149,51 @@
     height: 200px;
     object-fit: cover;
 }
+
+
+.container {
+
+    position: relative;
+
+}
+
+
+/* Définir la position absolute pour la barre de recherche */
+
+.container {
+
+    position: relative;
+
+}
+
+
+/* Définir la position absolute pour la barre de recherche */
+
+.form-inline {
+
+    position: absolute;
+
+    top: 50%; /* Positionner au milieu de la page */
+
+    left: 50%; /* Positionner au milieu de la page */
+
+    transform: translate(-50%, -540%); /* Centrer la barre de recherche */
+
+    width: 50%; /* Définir la largeur de la barre de recherche */
+
+    z-index: 1000; /* Définir l'ordre d'empilement */
+
+}
+
+
+/* Définir la hauteur de la barre de recherche */
+
+.form-inline .form-control {
+
+    height: 40px; /* Hauteur souhaitée */
+
+    padding: 10px; /* Ajuster le padding pour que le texte soit bien positionné */
+
+    font-size: 16px; /* Taille de police */
+
+}
