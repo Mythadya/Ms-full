@@ -71,7 +71,7 @@ try {
                         <!-- Affichage du nom de la catégorie -->
                         <h5 class="card-title"><?php echo htmlspecialchars($category['libelle'], ENT_QUOTES, 'UTF-8'); ?></h5>
                         <!-- Lien vers la page de détails de la catégorie -->
-                        <a href="category.php?id=<?php echo urlencode($category['id']); ?>" class="btn btn-primary">Voir Catégorie</a>
+                        <a href="categorie.php?id=<?php echo $category['id']; ?>" class="btn btn-primary">Voir Catégorie</a>
                     </div>
                 </div>
             </div>

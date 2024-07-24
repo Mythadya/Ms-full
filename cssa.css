@@ -1,199 +1,241 @@
+/* Styles pour les images dans la classe .containerss */
 .containerss img {
-    width: 30%;
-    height: auto;
-    margin-right: 5px;
+    width: 30%; /* Définit la largeur des images à 30% de leur conteneur parent */
+    height: auto; /* Maintient le ratio d'aspect des images */
+    margin-right: 5px; /* Ajoute une marge à droite de 5px */
 }
 
 .containerss img:last-child {
-    margin-right: 0;
+    margin-right: 0; /* Supprime la marge à droite pour la dernière image */
 }
+
+/* Styles pour les cartes avec effet parallax */
 .parallax-card {
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    transform: translate3d(0, 0, 0);
-    transition: transform 0.5s ease-out;
+    background-attachment: fixed; /* Fixe l'image d'arrière-plan pour créer un effet de défilement parallaxe */
+    background-position: center; /* Centre l'image d'arrière-plan */
+    background-repeat: no-repeat; /* Empêche la répétition de l'image d'arrière-plan */
+    background-size: cover; /* Ajuste l'image d'arrière-plan pour couvrir entièrement l'élément */
+    transform: translate3d(0, 0, 0); /* Utilise la transformation 3D pour optimiser le rendu */
+    transition: transform 0.5s ease-out; /* Ajoute une transition douce à la transformation */
 }
+
+/* Styles pour la section avec effet parallax */
 .parallax {
-    background-image: url("images_the_district  (1)/ibg.jpg");
-    min-height: 500px;
-    background-attachment: fixed;  
-    background-position: center; 
-    background-repeat: no-repeat;  
-    background-size: cover;
+    background-image: url("images_the_district  (1)/ibg.jpg"); /* Définit l'image d'arrière-plan */
+    min-height: 500px; /* Définit une hauteur minimale de 500px */
+    background-attachment: fixed; /* Fixe l'image d'arrière-plan */
+    background-position: center; /* Centre l'image d'arrière-plan */
+    background-repeat: no-repeat; /* Empêche la répétition de l'image d'arrière-plan */
+    background-size: cover; /* Ajuste l'image pour couvrir entièrement l'élément */
 }
+
+/* Styles pour la barre de navigation */
 .navbar {
-    background-image: url('images_the_district  (1)/bg2.jpeg');
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-image: url('images_the_district  (1)/bg2.jpeg'); /* Image d'arrière-plan pour la navbar */
+    background-repeat: no-repeat; /* Empêche la répétition de l'image */
+    background-size: cover; /* Ajuste l'image pour couvrir la navbar */
 }
+
+/* Styles pour le conteneur de formulaire */
 #form-container {
-    background-image: url('images_the_district  (1)/bg3.jpeg');
-    background-size: cover;
-    background-position: center;
+    background-image: url('images_the_district  (1)/bg3.jpeg'); /* Image d'arrière-plan pour le formulaire */
+    background-size: cover; /* Ajuste l'image pour couvrir le conteneur */
+    background-position: center; /* Centre l'image */
 }
+
+/* Styles responsive pour petits écrans */
 @media (max-width: 767px) {
     .container.text-center.mt-5 {
-      display: none;
+        display: none; /* Masque le conteneur sur les écrans de moins de 767px */
     }
 }
 
-
+/* Styles pour les cartes personnalisées */
 .custom-card {
-    width: 300px;
-    height: auto;
-    margin-bottom: 10px;
+    width: 300px; /* Définit une largeur fixe de 300px */
+    height: auto; /* Ajuste automatiquement la hauteur */
+    margin-bottom: 10px; /* Ajoute une marge en bas de 10px */
 }
 
 .custom-card img {
-    width: 100%;
-    height: auto;
+    width: 100%; /* Définit la largeur des images à 100% de leur conteneur */
+    height: auto; /* Maintient le ratio d'aspect des images */
 }
+
+/* Styles pour le wrapper des cartes */
 .card-wrapper {
-    flex: 0 0 33.333%;
-    max-width: 33.333%;
-    padding: 10px;
+    flex: 0 0 33.333%; /* Utilise le flexbox pour répartir les cartes sur un tiers de la ligne */
+    max-width: 33.333%; /* Définit la largeur maximale à un tiers */
+    padding: 10px; /* Ajoute un padding de 10px */
 }
+
+/* Styles responsive pour les wrappers de cartes sur petits écrans */
 @media (max-width: 768px) {
     .card-wrapper {
-        flex: 0 0 100%;
-        max-width: 100%;
+        flex: 0 0 100%; /* Répartit les cartes sur toute la ligne */
+        max-width: 100%; /* Définit la largeur maximale à 100% */
     }
 }
 
-
+/* Styles pour le wrapper principal */
 .body-wrapper {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  h2, h3 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  p {
-    font-size: 1.2rem;
-    font-family: sans-serif;
-    line-height: 1.4;
-    margin-bottom: 20px;
-  }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  ul li {
-    margin-bottom: 10px;
-  }
-  
-  a {
-    outline: none;
-    text-decoration: none;
-    padding: 2px 1px 0;
-    color: #265301;
-  }
-  
-  a:hover {
-    border-bottom: 1px solid;
-    background: #CDFEAA;
-  }
-
-
-  .legal-notice {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px; /* Définit une largeur maximale de 800px */
+    margin: 40px auto; /* Centre le wrapper avec une marge de 40px en haut et en bas */
+    padding: 20px; /* Ajoute un padding de 20px */
+    background-color: #f9f9f9; /* Définit une couleur de fond gris clair */
+    border: 1px solid #ddd; /* Ajoute une bordure grise */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ajoute une ombre portée subtile */
 }
 
+/* Styles pour les titres h2 et h3 */
+h2, h3 {
+    text-align: center; /* Centre le texte */
+    margin-bottom: 20px; /* Ajoute une marge en bas de 20px */
+}
+
+/* Styles pour les paragraphes */
+p {
+    font-size: 1.2rem; /* Définit une taille de police de 1.2 rem */
+    font-family: sans-serif; /* Utilise une police sans-serif */
+    line-height: 1.4; /* Définit une hauteur de ligne de 1.4 */
+    margin-bottom: 20px; /* Ajoute une marge en bas de 20px */
+}
+
+/* Styles pour les listes non ordonnées */
+ul {
+    list-style: none; /* Supprime les puces */
+    padding: 0; /* Supprime le padding */
+    margin: 0; /* Supprime la marge */
+}
+
+/* Styles pour les éléments de liste */
+ul li {
+    margin-bottom: 10px; /* Ajoute une marge en bas de 10px */
+}
+
+/* Styles pour les liens */
+a {
+    outline: none; /* Supprime le contour */
+    text-decoration: none; /* Supprime la décoration du texte */
+    padding: 2px 1px 0; /* Ajoute un padding pour le lien */
+    color: #265301; /* Définit la couleur du texte */
+}
+
+/* Styles pour les liens au survol */
+a:hover {
+    border-bottom: 1px solid; /* Ajoute une bordure inférieure */
+    background: #CDFEAA; /* Change la couleur de fond au survol */
+}
+
+/* Styles pour la section des mentions légales */
+.legal-notice {
+    max-width: 800px; /* Définit une largeur maximale de 800px */
+    margin: 40px auto; /* Centre la section avec une marge de 40px en haut et en bas */
+    padding: 20px; /* Ajoute un padding de 20px */
+    background-color: #fff; /* Définit une couleur de fond blanche */
+    border: 1px solid #ddd; /* Ajoute une bordure grise */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ajoute une ombre portée subtile */
+}
+
+/* Styles pour les titres h1 dans la section des mentions légales */
 .legal-notice h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: #337ab7;
+    font-size: 24px; /* Définit une taille de police de 24px */
+    margin-bottom: 10px; /* Ajoute une marge en bas de 10px */
+    font-weight: bold; /* Définit une police en gras */
+    color: #337ab7; /* Définit la couleur du texte */
 }
 
+/* Styles pour les titres h2 dans la section des mentions légales */
 .legal-notice h2 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: #337ab7;
+    font-size: 18px; /* Définit une taille de police de 18px */
+    margin-bottom: 10px; /* Ajoute une marge en bas de 10px */
+    font-weight: bold; /* Définit une police en gras */
+    color: #337ab7; /* Définit la couleur du texte */
 }
 
+/* Styles pour les paragraphes dans la section des mentions légales */
 .legal-notice p {
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Ajoute une marge en bas de 20px */
 }
 
+/* Styles pour les liens dans la section des mentions légales */
 .legal-notice a {
-    text-decoration: none;
-    color: #337ab7;
+    text-decoration: none; /* Supprime la décoration du texte */
+    color: #337ab7; /* Définit la couleur du texte */
 }
 
+/* Styles pour les liens au survol dans la section des mentions légales */
 .legal-notice a:hover {
-    text-decoration: underline;
+    text-decoration: underline; /* Ajoute une décoration de soulignement au survol */
 }
 
-
+/* Styles pour les images dans la classe .custom-card */
 .custom-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+    width: 100%; /* Définit la largeur des images à 100% de leur conteneur */
+    height: 200px; /* Définit une hauteur fixe de 200px */
+    object-fit: cover; /* Ajuste l'image pour couvrir le conteneur sans distorsion */
 }
 
-
+/* Styles pour la classe .container */
 .container {
-
-    position: relative;
-
+    position: relative; /* Définit la position relative pour permettre l'utilisation de position absolute sur les éléments enfants */
 }
 
-
-/* Définir la position absolute pour la barre de recherche */
-
-.container {
-
-    position: relative;
-
-}
-
-
-/* Définir la position absolute pour la barre de recherche */
-
+/* Styles pour le formulaire en ligne */
 .form-inline {
-
-    position: absolute;
-
-    top: 50%; /* Positionner au milieu de la page */
-
-    left: 50%; /* Positionner au milieu de la page */
-
-    transform: translate(-50%, -540%); /* Centrer la barre de recherche */
-
-    width: 50%; /* Définir la largeur de la barre de recherche */
-
-    z-index: 1000; /* Définir l'ordre d'empilement */
-
+    position: absolute; /* Définit la position absolue pour permettre un positionnement précis */
+    top: 50%; /* Positionne à 50% de la hauteur de la page */
+    left: 50%; /* Positionne à 50% de la largeur de la page */
+    transform: translate(-50%, -540%); /* Centre le formulaire */
+    width: 50%; /* Définit la largeur du formulaire à 50% */
+    z-index: 1000; /* Définit l'ordre d'empilement */
 }
 
-
-/* Définir la hauteur de la barre de recherche */
-
+/* Styles pour les contrôles de formulaire */
 .form-inline .form-control {
+    height: 40px; /* Définit la hauteur des contrôles de formulaire */
+    padding: 10px; /* Ajoute un padding pour positionner le texte */
+    font-size: 16px; /* Définit la taille de la police */
+}
 
-    height: 40px; /* Hauteur souhaitée */
+/* Classe pour le conteneur des cartes */
+.containerx2 {
+    /* Afficher les éléments en flexbox pour une mise en page flexible */
+    display: flex;
+    /* Permettre aux éléments de passer à la ligne suivante si nécessaire */
+    flex-wrap: wrap;
+    /* Centrer les éléments horizontalement */
+    justify-content: center;
+}
 
-    padding: 10px; /* Ajuster le padding pour que le texte soit bien positionné */
+/* Classe pour les cartes */
+.cardx2 {
+    /* Largeur des cartes */
+    width: 250px;
+    /* Marge entre les cartes */
+    margin: 10px;
+    /* Bordure des cartes */
+    border: 1px solid #ccc;
+    /* Arrondir les coins des cartes */
+    border-radius: 5px;
+    /* Ajouter une ombre aux cartes */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-    font-size: 16px; /* Taille de police */
+/* Classe pour le corps des cartes */
+.card-bodyx2 {
+    /* Espacement entre le bord de la carte et son contenu */
+    padding: 15px;
+}
 
+/* Classe pour les images dans les cartes */
+.cardx2 img {
+    /* Largeur de l'image */
+    width: 100%;
+    /* Hauteur de l'image */
+    height: 150px;
+    /* Pour que l'image soit bien dimensionnée sans être déformée */
+    object-fit: cover;
+    /* Arrondir les coins supérieurs de l'image */
+    border-radius: 5px 5px 0 0;
 }
