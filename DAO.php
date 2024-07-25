@@ -2,8 +2,13 @@
 class DAO {
     private $pdo;
 
-    public function __construct(PDO $pdo) {
-        $this->pdo = $pdo;
+    public function __construct($db_host, $db_name, $db_user, $db_password) {
+        try {
+            $this->conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            echo "Connection failed: " . $e->getMessage();
+        }
     }
 
 
@@ -44,5 +49,18 @@ class DAO {
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getFeaturedPlats() {
+        try {
+          $sql = "SELECT * FROM plat LIMIT 6";
+          $stmt = $this->conn->prepare($sql);
+          $stmt->execute();
+          return $stmt->fetchAll(PDO::FETCH_ASSOC | PDO::FETCH_PROPS_LATE);
+        } catch (PDOException $e) {
+          // Gérer l'erreur ici, par exemple en loguant l'erreur et en retournant un message d'erreur
+          error_log($e->getMessage());
+          return array('error' => 'Erreur lors de la récupération des plats');
+        }
+      }
 }
 ?>
