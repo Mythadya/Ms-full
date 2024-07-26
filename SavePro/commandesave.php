@@ -44,7 +44,17 @@ $plat_image = isset($_POST['image']) ? htmlspecialchars($_POST['image']) : '';
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
-                    <img src="<?php echo htmlspecialchars($plat_image); ?>" alt="<?php echo htmlspecialchars($plat_libelle); ?>">
+                    <!-- Débogage du chemin de l'image -->
+                    <?php
+                    $image_path = "images_the_district  (1)/food/". $plat_image;
+                    var_dump($image_path);
+                    if (!file_exists($image_path)) {
+                        echo "<p style='color: red;'>Image introuvable: " . htmlspecialchars($image_path) . "</p>";
+                    } else {
+                        echo "<p style='color: green;'>Image trouvée: " . htmlspecialchars($image_path) . "</p>";
+                    }
+                    ?>
+                    <img src="<?php echo $_POST['image'];?>" alt="<?php echo $_POST['libelle'];?>">
                     <div class="card-body">
                         <h5 class="card-title"><?php echo htmlspecialchars($plat_libelle); ?></h5>
                         <p class="card-text">Prix : <?php echo htmlspecialchars($plat_prix); ?> €</p>

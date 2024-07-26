@@ -7,15 +7,6 @@ class DAO {
     }
 
 
-    /* public function __construct($db_host, $db_name, $db_user, $db_password) {
-        try {
-            $this->conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
-            echo "Connection failed: " . $e->getMessage();
-        }
-    } */
-
     public function getCategories() {
 
         $stmt = $this->pdo->prepare('SELECT * FROM categorie WHERE active = \'Yes\' LIMIT 6');
@@ -54,20 +45,24 @@ class DAO {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getFeaturedPlats() {
-        if ($this->pdo === null) {
-            throw new RuntimeException('Database connection not established.');
-        }
 
+    public function getFeaturedPlats() {
         try {
-            // Filtrer uniquement par active = 'Yes'
-            $stmt = $this->pdo->prepare('SELECT * FROM plat WHERE active = "Yes" LIMIT 6');
-            $stmt->execute();
-            return $stmt->fetchAll();
+          $sql = "SELECT * FROM plat WHERE active = 'Yes' LIMIT 6";
+          $stmt = $this->conn->prepare($sql);
+          $stmt->execute();
+          return $stmt->fetchAll(PDO::FETCH_ASSOC | PDO::FETCH_PROPS_LATE);
         } catch (PDOException $e) {
-            error_log('Query error: ' . $e->getMessage());
-            return [];
+          // Gérer l'erreur ici, par exemple en loguant l'erreur et en retournant un message d'erreur
+          error_log($e->getMessage());
+          return array('error' => 'Erreur lors de la récupération des plats');
         }
+      }
+
+      public function fetchPlatById($id) {
+        $stmt = $this->pdo->prepare("SELECT * FROM plats WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
 ?>
