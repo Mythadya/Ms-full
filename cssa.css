@@ -79,95 +79,79 @@
 
 /* Styles pour le wrapper principal */
 .body-wrapper {
-    max-width: 800px; /* Définit une largeur maximale de 800px */
-    margin: 40px auto; /* Centre le wrapper avec une marge de 40px en haut et en bas */
-    padding: 20px; /* Ajoute un padding de 20px */
-    background-color: #f9f9f9; /* Définit une couleur de fond gris clair */
-    border: 1px solid #ddd; /* Ajoute une bordure grise */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ajoute une ombre portée subtile */
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .section-title {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+  }
+  
+  .section-intro, .policy-section p {
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: 1em;
+  }
+  
+  .section-subtitle {
+    font-size: 1.5em;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+  }
+  
+  .info-list {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  .policy-section {
+    margin-bottom: 2em;
 }
 
-/* Styles pour les titres h2 et h3 */
-h2, h3 {
-    text-align: center; /* Centre le texte */
-    margin-bottom: 20px; /* Ajoute une marge en bas de 20px */
-}
 
-/* Styles pour les paragraphes */
-p {
-    font-size: 1.2rem; /* Définit une taille de police de 1.2 rem */
-    font-family: sans-serif; /* Utilise une police sans-serif */
-    line-height: 1.4; /* Définit une hauteur de ligne de 1.4 */
-    margin-bottom: 20px; /* Ajoute une marge en bas de 20px */
-}
-
-/* Styles pour les listes non ordonnées */
-ul {
-    list-style: none; /* Supprime les puces */
-    padding: 0; /* Supprime le padding */
-    margin: 0; /* Supprime la marge */
-}
-
-/* Styles pour les éléments de liste */
-ul li {
-    margin-bottom: 10px; /* Ajoute une marge en bas de 10px */
-}
-
-/* Styles pour les liens */
-a {
-    outline: none; /* Supprime le contour */
-    text-decoration: none; /* Supprime la décoration du texte */
-    padding: 2px 1px 0; /* Ajoute un padding pour le lien */
-    color: #265301; /* Définit la couleur du texte */
-}
-
-/* Styles pour les liens au survol */
-a:hover {
-    border-bottom: 1px solid; /* Ajoute une bordure inférieure */
-    background: #CDFEAA; /* Change la couleur de fond au survol */
-}
 
 /* Styles pour la section des mentions légales */
 .legal-notice {
-    max-width: 800px; /* Définit une largeur maximale de 800px */
-    margin: 40px auto; /* Centre la section avec une marge de 40px en haut et en bas */
-    padding: 20px; /* Ajoute un padding de 20px */
-    background-color: #fff; /* Définit une couleur de fond blanche */
-    border: 1px solid #ddd; /* Ajoute une bordure grise */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ajoute une ombre portée subtile */
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 20px;
 }
 
-/* Styles pour les titres h1 dans la section des mentions légales */
 .legal-notice h1 {
-    font-size: 24px; /* Définit une taille de police de 24px */
-    margin-bottom: 10px; /* Ajoute une marge en bas de 10px */
-    font-weight: bold; /* Définit une police en gras */
-    color: #337ab7; /* Définit la couleur du texte */
+    color: #333;
+    font-size: 2.5em;
+    margin-bottom: 20px;
 }
 
-/* Styles pour les titres h2 dans la section des mentions légales */
 .legal-notice h2 {
-    font-size: 18px; /* Définit une taille de police de 18px */
-    margin-bottom: 10px; /* Ajoute une marge en bas de 10px */
-    font-weight: bold; /* Définit une police en gras */
-    color: #337ab7; /* Définit la couleur du texte */
+    color: #333;
+    font-size: 1.8em;
+    margin-top: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
 }
 
-/* Styles pour les paragraphes dans la section des mentions légales */
 .legal-notice p {
-    margin-bottom: 20px; /* Ajoute une marge en bas de 20px */
+    color: #333;
+    font-size: 1.1em;
+    margin-bottom: 15px;
 }
 
-/* Styles pour les liens dans la section des mentions légales */
 .legal-notice a {
-    text-decoration: none; /* Supprime la décoration du texte */
-    color: #337ab7; /* Définit la couleur du texte */
+    color: #1a73e8;
+    text-decoration: none;
 }
 
-/* Styles pour les liens au survol dans la section des mentions légales */
 .legal-notice a:hover {
-    text-decoration: underline; /* Ajoute une décoration de soulignement au survol */
+    text-decoration: underline;
 }
+
+
 
 /* Styles pour les images dans la classe .custom-card */
 .custom-card img {
@@ -176,10 +160,14 @@ a:hover {
     object-fit: cover; /* Ajuste l'image pour couvrir le conteneur sans distorsion */
 }
 
+
+
 /* Styles pour la classe .container */
 .container {
     position: relative; /* Définit la position relative pour permettre l'utilisation de position absolute sur les éléments enfants */
 }
+
+
 
 /* Styles pour le formulaire en ligne */
 .form-inline {
@@ -191,12 +179,16 @@ a:hover {
     z-index: 1000; /* Définit l'ordre d'empilement */
 }
 
+
+
 /* Styles pour les contrôles de formulaire */
 .form-inline .form-control {
     height: 40px; /* Définit la hauteur des contrôles de formulaire */
     padding: 10px; /* Ajoute un padding pour positionner le texte */
     font-size: 16px; /* Définit la taille de la police */
 }
+
+
 
 /* Classe pour le conteneur des cartes */
 .containerx2 {
@@ -207,6 +199,8 @@ a:hover {
     /* Centrer les éléments horizontalement */
     justify-content: center;
 }
+
+
 
 /* Classe pour les cartes */
 .cardx2 {
@@ -222,11 +216,15 @@ a:hover {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+
+
 /* Classe pour le corps des cartes */
 .card-bodyx2 {
     /* Espacement entre le bord de la carte et son contenu */
     padding: 15px;
 }
+
+
 
 /* Classe pour les images dans les cartes */
 .cardx2 img {

@@ -4,45 +4,46 @@ include 'header.php'; // Inclusion du fichier d'en-tête HTML
 
 // Connexion à la base de données
 try {
-    // Définition des paramètres de connexion à la base de données
-    $dsn = 'mysql:host=localhost;dbname=District';
-    $username = 'admin';
-    $password = 'Afpa1234';
+    // Utilisation des variables d'environnement pour les informations sensibles
+    $dsn = getenv('DB_DSN') ?: 'mysql:host=localhost;dbname=District';
+    $username = getenv('DB_USERNAME') ?: 'admin';
+    $password = getenv('DB_PASSWORD') ?: 'Afpa1234';
 
-    // Création d'une instance de PDO pour se connecter à la base de données
     $pdo = new PDO($dsn, $username, $password, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // Active les exceptions en cas d'erreur
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, // Définit le mode de récupération par défaut à FETCH_ASSOC
-        PDO::ATTR_EMULATE_PREPARES => false // Désactive l'émulation des requêtes préparées pour utiliser les vraies requêtes préparées
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false
     ]);
 } catch (PDOException $e) {
-    // En cas d'erreur de connexion, on enregistre l'erreur et on affiche un message d'erreur
     error_log('Database connection error: ' . $e->getMessage());
     die('Unable to connect to the database.');
 }
 
-// Création d'une instance de la classe DAO avec la connexion PDO
-$categoryDAO = new DAO($pdo);
+$categoryDAO = new DAO($pdo); // Création d'une instance de la classe DAO avec la connexion PDO
 
 // Récupération des catégories et des plats depuis la base de données
 try {
-    $categories = $categoryDAO->getCategories(); // Récupération des catégories
-    $plats = $categoryDAO->getPlats(); // Récupération des plats
+    $categories = $categoryDAO->getCategories();
+    $plats = $categoryDAO->getPlats();
 } catch (Exception $e) {
-    // En cas d'erreur de récupération, on enregistre l'erreur et on affiche un message d'erreur
     error_log('Data retrieval error: ' . $e->getMessage());
     die('Unable to retrieve data.');
 }
 
-// Récupération des informations du plat
-$plat_id = isset($_POST['id']) ? intval($_POST['id']) : 0; // Récupération de l'id du plat ou 0 par défaut
-$plat_libelle = isset($_POST['libelle']) ? htmlspecialchars($_POST['libelle']) : ''; // Récupération du libellé du plat
-$plat_prix = isset($_POST['prix']) ? floatval($_POST['prix']) : 0.0; // Récupération du prix du plat
-$plat_image = isset($_POST['image']) ? htmlspecialchars($_POST['image']) : ''; // Récupération de l'image du plat
+// Récupération et validation des informations du plat
+$plat_id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT) ?: 0;
+$plat_libelle = filter_input(INPUT_POST, 'libelle', FILTER_SANITIZE_STRING) ?: '';
+$plat_prix = filter_input(INPUT_POST, 'prix', FILTER_VALIDATE_FLOAT) ?: 0.0;
+$plat_image = filter_input(INPUT_POST, 'image', FILTER_SANITIZE_STRING) ?: '';
 
+// Protection contre les attaques CSRF
+session_start();
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+$csrf_token = $_SESSION['csrf_token'];
 ?>
 
-<!-- Début du contenu principal de la page -->
 <main>
     <div id="form-container" class="container2">
         <h1 class="text-center" style="color: #FFFFFF;">Formulaire de Commande</h1><br>
@@ -65,10 +66,11 @@ $plat_image = isset($_POST['image']) ? htmlspecialchars($_POST['image']) : ''; /
         </div>
 
         <div class="d-flex justify-content-center align-items-center">
-            <form id="contactForm" novalidate>
+            <form id="contactForm" novalidate method="post" action="process_order.php">
+                <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
                 <div class="row mb-3 needs-validation">
                     <div class="col"><br>
-                        <label for="nom" class="form-label" style="color: #FFFFFF;">Nom et Prenom*</label>
+                        <label for="nometprenom" class="form-label" style="color: #FFFFFF;">Nom et Prenom*</label>
                         <input type="text" class="form-control" id="nometprenom" name="nometprenom" required>
                         <div class="valid-feedback">Looks good!</div>
                         <small class="text-danger validation-message">*Ce champ est obligatoire</small>
@@ -135,5 +137,5 @@ $plat_image = isset($_POST['image']) ? htmlspecialchars($_POST['image']) : ''; /
 <script src="js/script.js"></script>
 
 <?php
-include 'footer.php'; // Inclusion du fichier de pied de page HTML
+include 'footer.php';
 ?>
