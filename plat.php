@@ -60,4 +60,3 @@ if (empty($plats)) {
 include 'footer.php';
 
 ?>
-
